@@ -8,7 +8,7 @@ public interface MyQueue<T> {
 
     boolean push(T data);
 
-    T pop(T defaultData);
+    T pop();
 
     void clear();
 }

@@ -15,9 +15,9 @@ public class DuoLinkedList <T> {
 
     private static class DuoLinkedNode <T>{
 
-        T data;
-        DuoLinkedNode<T> next;
-        DuoLinkedNode<T> previous;
+        private T data;
+        private DuoLinkedNode<T> next;
+        private DuoLinkedNode<T> previous;
 
         DuoLinkedNode(T data,
                       DuoLinkedNode<T> previous,
@@ -117,7 +117,7 @@ public class DuoLinkedList <T> {
      */
 
     public Optional<T> getDataOfBackNode() {
-        return (isEmpty() ? start.getData() : Optional.empty());
+        return (isEmpty() ? Optional.empty() : start.getData());
     }
 
     /**
@@ -126,7 +126,7 @@ public class DuoLinkedList <T> {
      */
 
     public Optional<T> getDataOfFrontNode() {
-        return (isEmpty() ? end.getData() : Optional.empty());
+        return (isEmpty() ? Optional.empty() : end.getData());
     }
 
     /**

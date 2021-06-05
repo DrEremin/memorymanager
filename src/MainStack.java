@@ -25,11 +25,11 @@ public class MainStack {
         System.out.println("stackString = " + stackString);
         System.out.println("Calls of method pop() for both stacks:");
         for (int i = stackInt.getSize() + 1; i >= 0; i--) {
-            System.out.print("[" + stackInt.pop(7777) + "] ");
+            System.out.print("[" + stackInt.pop() + "] ");
         }
         System.out.println();
         for (int i = stackString.getSize() + 1; i >= 0; i--) {
-            System.out.print("[" + stackString.pop("null") + "] ");
+            System.out.print("[" + stackString.pop() + "] ");
             stackInt.push(i);
         }
         System.out.println("\nWere added elements to stackInt:");

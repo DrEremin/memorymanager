@@ -68,26 +68,19 @@ public class Stack<T> implements MyQueue<T> {
 
     @Override
     public boolean push(T data) {
+
         return data != null && stack.add(data);
     }
 
     /**
      * This method remove an element from top of stack
-     * @param defaultData This is link at object which using
-     * for replacement null
      * @return Returns either link at object which removed
      * from top of stack or link at object by default
      */
 
     @Override
-    public T pop(T defaultData) {
-        int lastIndex;
-        if ((lastIndex = stack.size() - 1) < 0) {
-            return defaultData;
-        }
-        return Optional.ofNullable(
-                stack.remove(lastIndex)).
-                orElse(defaultData);
+    public T pop() {
+        return stack.remove(stack.size() - 1);
     }
 
     /**
