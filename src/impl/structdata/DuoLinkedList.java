@@ -3,9 +3,7 @@ package impl.structdata;
 import java.util.Optional;
 
 /**
- * вернуть массив совпадающих значений
- * equals() и hashCode() для DuoLinkedNode
- * toString(), toArray(), конструктор с массивом
+ * This class implements a data struct is doubly linked list
  */
 
 public class DuoLinkedList <T> {
