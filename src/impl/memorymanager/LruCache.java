@@ -10,7 +10,7 @@ public class LruCache<T> implements Cache<T> {
     private int tail;
 
     public LruCache(int capacity) {
-        dequeue = (T[]) new Object[capacity];
+        dequeue = (T[]) new Object[capacity + 1];
         head = -1;
         tail = -1;
     }
@@ -18,7 +18,8 @@ public class LruCache<T> implements Cache<T> {
     @Override
     public void put(T data) {
         if (head == -1 && tail == -1) {
-            dequeue[++head] = data;
+            head += 2;
+            dequeue[head] = data;
             tail++;
         } else if (head == dequeue.length - 1) {
             head = 0;
@@ -51,26 +52,26 @@ public class LruCache<T> implements Cache<T> {
         return dequeue[head];
     }
 
+    private String stringBuilder(int startIndex, int endIndex) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = startIndex; i > endIndex; i--) {
+            builder.append(dequeue[i].toString());
+            builder.append(" ");
+        }
+        return builder.toString();
+    }
+
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
+        String string;
         if (head == tail) {
             return "";
         } else if (head > tail) {
-            for (int i = head; i >= 0; i--) {
-                builder.append(dequeue[i].toString());
-                builder.append(" ");
-            }
+            string = stringBuilder(head, tail);
         } else {
-            for (int i = head; i >= 0; i--) {
-                builder.append(dequeue[i].toString());
-                builder.append(" ");
-            }
-            for (int i = dequeue.length - 1; i >= tail; i--) {
-                builder.append(dequeue[i].toString());
-                builder.append(" ");
-            }
+            string = stringBuilder(head, -1)
+                    + stringBuilder(dequeue.length - 1, tail);
         }
-        return builder.toString();
+        return string;
     }
 }
