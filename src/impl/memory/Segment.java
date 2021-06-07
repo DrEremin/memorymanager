@@ -1,25 +1,33 @@
 package impl.memory;
 
+
 public final class Segment {
 
-    private int startingIndexOfSegment;
+    private int startingIndex;
     private int length;
+    private int previousIndex;
     private boolean busyStatus;
 
+
     public Segment() {
-        startingIndexOfSegment = 0;
+        startingIndex = 0;
         length = 0;
         busyStatus = false;
+        previousIndex = -1;
     }
 
-    public Segment(int startingIndex, int length, boolean busyStatus) {
-        this.startingIndexOfSegment = startingIndex;
+    public Segment(int startingIndex,
+                   int length,
+                   boolean busyStatus,
+                   int previousSegmentIndex) {
+        this.startingIndex = startingIndex;
         this.length = length;
         this.busyStatus = busyStatus;
+        this.previousIndex = previousSegmentIndex;
     }
 
     public int getStartingIndex() {
-        return startingIndexOfSegment;
+        return startingIndex;
     }
 
     public int getLength() {
@@ -30,6 +38,14 @@ public final class Segment {
         return busyStatus;
     }
 
+    public int getPreviousIndex() {
+        return previousIndex;
+    }
+
+    public void setStartingIndex(int newValue) {
+        startingIndex = newValue;
+    }
+
     public void setLength(int newLength) {
         length = newLength;
     }
@@ -38,14 +54,19 @@ public final class Segment {
         busyStatus = newBusyStatus;
     }
 
+    public void setPreviousIndex(int newValue) {
+        previousIndex = newValue;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("(start = ");
-        builder.append(String.valueOf(startingIndexOfSegment));
-        builder.append(" length = ");
+        builder.append("(start: ");
+        builder.append(String.valueOf(startingIndex));
+        builder.append(", length: ");
         builder.append(String.valueOf(length));
-        builder.append(busyStatus ? " Busy)" : " Freely)");
+        builder.append(", status: ");
+        builder.append(busyStatus ? "Busy)" : "Freely)");
         return builder.toString();
     }
 }

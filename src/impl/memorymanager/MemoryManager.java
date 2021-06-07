@@ -2,19 +2,19 @@ package impl.memorymanager;
 
 import impl.memory.Memory;
 import impl.memory.Segment;
-import impl.structdata.DuoLinkedList;
 
 public class MemoryManager {
 
-    private final DuoLinkedList<Segment> segmentsList;
     private final LruCache<Integer> lruCache;
     private final Memory memory;
 
     public MemoryManager(Memory memory, int cashCapacity) {
-        Segment segment = new Segment(0, memory.getMemory().length, false);
-        segmentsList = new DuoLinkedList<>(segment);
+        Segment segment = new Segment(0,
+                memory.getMemory().length,
+                false,
+                -1);
         this.memory = memory;
-        memory.getMemory()[0] = segment;
+        this.memory.setMemoryLocation(0, segment);
         lruCache = new LruCache<>(cashCapacity);
         lruCache.put(0);
     }
@@ -30,22 +30,49 @@ public class MemoryManager {
         if (segmentLength > currentSegmentLength) {
             return -1;
         }
-        if (segmentLength == currentSegmentLength) {
-            currentSegment.setBusyStatus(true);
-        } else {
+        if (segmentLength < currentSegmentLength) {
             currentSegment.setLength(segmentLength);
-            currentSegment.setBusyStatus(true);
-            segmentsList.pushFront(new Segment(currentIndex + segmentLength,
+            memory.setMemoryLocation(
+                    currentIndex + segmentLength,
+                    new Segment(currentIndex + segmentLength,
                     currentSegmentLength - segmentLength,
-                    false));
-            memory.getMemory()[currentSegmentLength - segmentLength] = segmentsList.getDataOfFrontNode().get();
+                    false, currentIndex));
             lruCache.put(currentIndex + segmentLength);
         }
-        System.out.println("list: " + segmentsList);
+        currentSegment.setBusyStatus(true);
         return currentIndex;
     }
 
-    /*public boolean free(int startingIndexOfLastFreeSegment) {
+    public boolean free(int startingIndex) {
+        Segment currentSegment = memory.getMemoryLocation(
+                startingIndex);
+        if (currentSegment.getStartingIndex() == -1) {
+            return false;
+        }
+        currentSegment.setBusyStatus(false);
+        int nextIndex;
+        int nextLength;
+        if (isCorrectSegmentForMerging(
+                nextIndex = currentSegment.getLength() + startingIndex)) {
+            nextLength = memory.getMemoryLocation(nextIndex).getLength();
+            currentSegment.setLength(nextLength + currentSegment.getLength());
+            memory.setMemoryLocation(nextIndex, null);
+        }
+        int previousIndex;
+        if (isCorrectSegmentForMerging(
+                previousIndex = currentSegment.getPreviousIndex())) {
+            nextLength = currentSegment.getLength();
+            currentSegment = memory.getMemoryLocation(previousIndex);
+            currentSegment.setLength(nextLength + currentSegment.getLength());
+            memory.setMemoryLocation(startingIndex, null);
+        }
+        lruCache.put(currentSegment.getStartingIndex());
+        return true;
+    }
 
-    }*/
+    public boolean isCorrectSegmentForMerging(int startingIndex) {
+        Segment currentSegment = memory.getMemoryLocation(startingIndex);
+        return  currentSegment.getStartingIndex() != -1 && !currentSegment.getBusyStatus();
+    }
+
 }

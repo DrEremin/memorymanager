@@ -8,16 +8,26 @@ public class Main {
         Memory memory = new Memory(20);
         MemoryManager memoryManager =
                 new MemoryManager(memory, 6);
-        for (int i = 0; i < memory.getSizeSharedMemory(); i++) {
-            System.out.println("memory[" + i + "] = "
-                    + memory.getMemoryLocation(i));
-        }
+
+        System.out.println(memory);
+        System.out.println("memoryManager.malloc(10):");
         memoryManager.malloc(10);
-        System.out.println(memoryManager.cashToString());
-        for (int i = 0; i < memory.getSizeSharedMemory(); i++) {
-            System.out.println("memory[" + i + "] = "
-                    + memory.getMemoryLocation(i));
-        }
+        System.out.println("cache: " + memoryManager.cashToString());
+
+        System.out.println(memory);
+        System.out.println("memoryManager.malloc(5):");
+        memoryManager.malloc(5);
+        System.out.println("cache: " + memoryManager.cashToString());
+        System.out.println(memory);
+
+        System.out.println("memoryManager.free(10):");
+        memoryManager.free(10);
+        System.out.println("cache: " + memoryManager.cashToString());
+        System.out.println(memory);
+
+
+
+
 
 
         /*String[] strings = new String[50];
