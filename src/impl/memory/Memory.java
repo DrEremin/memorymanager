@@ -1,7 +1,6 @@
 package impl.memory;
 
 import impl.structdata.DuoLinkedList;
-import interfaces.MyQueue;
 
 import java.util.Arrays;
 
