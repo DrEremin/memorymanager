@@ -5,12 +5,21 @@ import impl.memorymanager.MemoryManager;
 public class Main {
     public static void main(String[] args) {
 
-        Memory memory = new Memory(10);
-        MemoryManager memoryManager = new MemoryManager(memory, 10);
+        Memory memory = new Memory(20);
+        MemoryManager memoryManager =
+                new MemoryManager(memory, 6);
         for (int i = 0; i < memory.getSizeSharedMemory(); i++) {
-            System.out.println(memory.getMemoryLocation(i));
+            System.out.println("memory[" + i + "] = "
+                    + memory.getMemoryLocation(i));
         }
+        memoryManager.malloc(10);
         System.out.println(memoryManager.cashToString());
+        for (int i = 0; i < memory.getSizeSharedMemory(); i++) {
+            System.out.println("memory[" + i + "] = "
+                    + memory.getMemoryLocation(i));
+        }
+
+
         /*String[] strings = new String[50];
         for (int i = 0; i < strings.length; i++) {
             strings[i] = String.valueOf(i);

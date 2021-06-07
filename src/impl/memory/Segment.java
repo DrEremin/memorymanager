@@ -2,20 +2,20 @@ package impl.memory;
 
 public final class Segment {
 
-    private final int startingIndexOfSegment;
-    private final int length;
-    private final boolean freelyBusy;
+    private int startingIndexOfSegment;
+    private int length;
+    private boolean busyStatus;
 
     public Segment() {
         startingIndexOfSegment = 0;
         length = 0;
-        freelyBusy = false;
+        busyStatus = false;
     }
 
-    public Segment(int startingIndex, int length, boolean freelyBusy) {
+    public Segment(int startingIndex, int length, boolean busyStatus) {
         this.startingIndexOfSegment = startingIndex;
         this.length = length;
-        this.freelyBusy = freelyBusy;
+        this.busyStatus = busyStatus;
     }
 
     public int getStartingIndex() {
@@ -26,7 +26,26 @@ public final class Segment {
         return length;
     }
 
-    public boolean getFreelyBusy() {
-        return freelyBusy;
+    public boolean getBusyStatus() {
+        return busyStatus;
+    }
+
+    public void setLength(int newLength) {
+        length = newLength;
+    }
+
+    public void setBusyStatus(boolean newBusyStatus) {
+        busyStatus = newBusyStatus;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("(start = ");
+        builder.append(String.valueOf(startingIndexOfSegment));
+        builder.append(" length = ");
+        builder.append(String.valueOf(length));
+        builder.append(busyStatus ? " Busy)" : " Freely)");
+        return builder.toString();
     }
 }
