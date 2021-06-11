@@ -1,5 +1,12 @@
 package impl.memory;
 
+/**
+ * This class imitates of memory. It is based on an array.
+ * Cells with which begin segments of memory contains
+ * links on objects of class Segment (segments of memory),
+ * other cells contains links on null.
+ */
+
 public class Memory {
     private final Segment[] sharedMemory;
     private final Segment defaultValue;
@@ -7,6 +14,10 @@ public class Memory {
     public Memory(int length) {
         sharedMemory = new Segment[length];
         defaultValue = new Segment(-1, -1, false, -1);
+    }
+
+    public void setMemoryLocation(int index, Segment newSegment) {
+        sharedMemory[index] = newSegment;
     }
 
     public Segment[] getMemory() {
@@ -20,12 +31,12 @@ public class Memory {
         return sharedMemory[index];
     }
 
-    public int getSizeSharedMemory() {
-        return sharedMemory.length;
+    public Segment getDefaultValue() {
+        return defaultValue;
     }
 
-    public void setMemoryLocation(int index, Segment newSegment) {
-        sharedMemory[index] = newSegment;
+    public int getSizeSharedMemory() {
+        return sharedMemory.length;
     }
 
     public boolean isValidIndex(int index) {
@@ -37,9 +48,9 @@ public class Memory {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < sharedMemory.length; i++) {
             builder.append("[");
-            builder.append(String.valueOf(i));
+            builder.append(i);
             builder.append("] = ");
-            builder.append(String.valueOf(sharedMemory[i]));
+            builder.append(sharedMemory[i]);
             builder.append("\n");
         }
         builder.replace(builder.length() - 1,

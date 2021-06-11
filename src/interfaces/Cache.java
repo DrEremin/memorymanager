@@ -1,10 +1,11 @@
 package interfaces;
 
-public interface Cache<T> {
 
-    void put(T data);
+public interface Cache<K, V> {
 
-    T get(int page);
+    void put(K key, V value);
 
-    boolean contains(int page);
+    V get(K key);
+
+    boolean contains(K key);
 }

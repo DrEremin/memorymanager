@@ -1,5 +1,8 @@
 package impl.memory;
 
+/**
+ * This class implements a segment of memory.
+ */
 
 public final class Segment {
 
@@ -26,22 +29,6 @@ public final class Segment {
         this.previousIndex = previousSegmentIndex;
     }
 
-    public int getStartingIndex() {
-        return startingIndex;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public boolean getBusyStatus() {
-        return busyStatus;
-    }
-
-    public int getPreviousIndex() {
-        return previousIndex;
-    }
-
     public void setStartingIndex(int newValue) {
         startingIndex = newValue;
     }
@@ -58,14 +45,30 @@ public final class Segment {
         previousIndex = newValue;
     }
 
+    public int getStartingIndex() {
+        return startingIndex;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public boolean getBusyStatus() {
+        return busyStatus;
+    }
+
+    public int getPreviousIndex() {
+        return previousIndex;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("(start: ");
-        builder.append(String.valueOf(startingIndex));
-        builder.append(", length: ");
-        builder.append(String.valueOf(length));
-        builder.append(", status: ");
+        builder.append("(start:");
+        builder.append(startingIndex);
+        builder.append(", length:");
+        builder.append(length);
+        builder.append(", status:");
         builder.append(busyStatus ? "Busy)" : "Freely)");
         return builder.toString();
     }
